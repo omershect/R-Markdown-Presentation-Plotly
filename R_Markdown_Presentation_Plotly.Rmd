@@ -1,0 +1,58 @@
+---
+title: "R Markdown Presentation & Plotly"
+author: "Omer Shechter"
+date: "27 November 2018"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+# Project Summary
+
+This project illustrates the use of Plot_ly.
+
+The dataset used:  
+
+Housing data set(from Ecdat).
+
+The plot provides a 3D interactive scatter plot for the following variables:
+
+* Price 
+
+* Lot Size 
+
+* Number of Bath Rooms 
+
+* Number of Stories 
+
+```{r echo=FALSE,message=FALSE}
+#Load libraries.
+library(plotly)
+library(tidyr)
+library(dplyr)
+library(Ecdat)
+```
+# Housing data
+```{r echo=FALSE,message=FALSE}
+str(Housing)
+```
+
+# 3D Plot Housing data  
+```{r echo=FALSE,message=FALSE}
+plot_ly(Housing, x = ~lotsize, y = ~price, z = ~bathrms,
+        marker = list(color = ~stories, colorscale = c('#FFE1A1', '#683531'), showscale = TRUE)) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Lot-Size'),
+                     yaxis = list(title = 'Price'),
+                     zaxis = list(title = 'Bath-Rooms')),
+         annotations = list(
+           x = 1.08,
+           y = 1.03,
+           text = 'Stories',
+           xref = 'paper',
+           yref = 'paper',
+           showarrow = FALSE
+         ))
+        
+
+```
+
